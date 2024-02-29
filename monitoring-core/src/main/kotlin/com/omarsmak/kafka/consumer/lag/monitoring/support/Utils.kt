@@ -19,9 +19,8 @@ object Utils {
 
         // Fetch consumers based no a regex
         val matchedConsumersGroups = configConsumerGroups
-                .filter { it.contains("*") }
                 .map { x ->
-                    consumerGroups.filter { it.startsWith(x.replace("*", "")) }
+                    consumerGroups.filter { x.toRegex().containsMatchIn(it) }
                 }
                 .flatten()
 
